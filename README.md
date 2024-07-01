@@ -21,7 +21,7 @@ Here you describe context as `GET /api/v1/test`, then you have to repeat url and
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rspec-grape'
+gem 'wt-rspec-grape'
 ```
 
 And then execute:

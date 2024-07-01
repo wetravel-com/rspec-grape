@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'rspec/grape/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "wt-grape-rspec"
+  spec.name          = "wt-rspec-grape"
   spec.version       = Rspec::Grape::VERSION
   spec.authors       = ["Ivan Tarapon"]
   spec.email         = ["ivan.tarapon@wetravel.com"]
