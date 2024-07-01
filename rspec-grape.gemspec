@@ -4,13 +4,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'rspec/grape/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "rspec-grape"
+  spec.name          = "wt-grape-rspec"
   spec.version       = Rspec::Grape::VERSION
-  spec.authors       = ["Timothy Kovalev"]
-  spec.email         = ["timothy.kovalev@gmail.com"]
+  spec.authors       = ["Ivan Tarapon"]
+  spec.email         = ["ivan.tarapon@wetravel.com"]
 
   spec.summary       = %q{A set of helpers, which make grape api specs shorter.}
-  spec.homepage      = "https://github.com/ktimothy/rspec-grape"
+  spec.homepage      = "https://github.com/wetravel-com/rspec-grape"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
