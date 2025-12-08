@@ -58,7 +58,7 @@ describe RSpec::Grape::Methods, include_methods: true do
     context 'when params are explicitly passed to api_call' do
       it 'uses passed params in request' do
         params = { test: true }
-        expect(self).to receive(:send).with(api_method, api_url, params)
+        expect(self).to receive(:send).with(api_method, api_url, {}, { 'CONTENT_TYPE' => 'application/json', input: params.to_json })
         
         call_api(params)
       end

@@ -25,7 +25,7 @@ module RSpec
         names.each do |name|
           raise RSpec::Grape::UrlParameterNotSet unless params.has_key?(name.to_sym)
 
-          url[":#{name}"] = params[name].to_s
+          url[":#{name}"] = params.delete(name).to_s
         end
 
         url
@@ -33,6 +33,7 @@ module RSpec
 
       def call_api(params = nil)
         params ||= {}
+        params = params.dup
 
         if parameterized_url?
           url = parameterized_api_url(params)
@@ -40,7 +41,11 @@ module RSpec
           url = api_url
         end
 
-        self.send(api_method, url, params)
+        if %w[GET HEAD DELETE].include?(api_method.to_s.upcase) || params.empty?
+          self.send(api_method, url, params)
+        else
+          self.send(api_method, url, {}, { 'CONTENT_TYPE' => 'application/json', input: params.to_json })
+        end
       end
 
       def expect_endpoint_to(matcher)
