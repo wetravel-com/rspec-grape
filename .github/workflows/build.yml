@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - '**'
+  workflow_dispatch:
 
 jobs:
   test:
@@ -20,3 +21,10 @@ jobs:
         run: bundle install
       - name: Run tests
         run: bundle exec rspec
+
+  # Publishes the gem to CodeArtifact via ci-templates (privileged OIDC role);
+  # idempotent per version, so it only pushes when lib/rspec/grape/version.rb bumps.
+  publish:
+    needs: [test]
+    uses: wetravel-com/ci-templates/.github/workflows/gem-publish.yml@master
+    secrets: inherit
