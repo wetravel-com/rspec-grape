@@ -22,5 +22,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec"
-  spec.add_development_dependency "grape"
+  # 0.1.0 uses Grape 3.3's reset_before_each; consumers must be on grape >= 3.3.
+  spec.add_development_dependency "grape", ">= 3.3"
 end
