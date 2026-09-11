@@ -18,10 +18,10 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "rack-test", "~> 2.0"
   spec.add_runtime_dependency "rspec-core", "~> 3.0"
+  # 3.3 is the floor for reset_before_each; the gem requires grape at load time.
+  spec.add_runtime_dependency "grape", ">= 3.3"
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec"
-  # 0.1.0 uses Grape 3.3's reset_before_each; consumers must be on grape >= 3.3.
-  spec.add_development_dependency "grape", ">= 3.3"
 end
