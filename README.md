@@ -81,6 +81,8 @@ expect_endpoint_not_to receive(:dont_help)
 
 Note that under the hood those methods use `Grape::Endpoint.before_each`, as suggested by [documentation](https://github.com/ruby-grape/grape#stubbing-helpers). Thanks to [Jon Rowe](https://github.com/JonRowe) for the idea.
 
+That method lives in `Grape::Testing`, which Grape 4 no longer loads as part of `require 'grape'`. rspec-grape requires `grape/testing` itself, so no extra `require` is needed in your spec helper on either Grape 3.3+ or Grape 4.
+
 ### Inline parameters
 
 When you define some parameters in url like
