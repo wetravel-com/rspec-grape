@@ -83,6 +83,24 @@ describe RSpec::Grape::Methods, include_methods: true do
         call_api(params)
       end
     end
+
+    context 'when params contain an uploaded file' do
+      let(:file) { Rack::Test::UploadedFile.new(StringIO.new('bytes'), 'text/plain', original_filename: 'a.txt') }
+
+      it 'sends params as multipart' do
+        params = { test: true, file: file }
+        expect(self).to receive(:send).with(api_method, api_url, params)
+
+        call_api(params)
+      end
+
+      it 'detects nested files' do
+        params = { documents: [{ file: file }] }
+        expect(self).to receive(:send).with(api_method, api_url, params)
+
+        call_api(params)
+      end
+    end
   end
 
   describe '#expect_endpoint_to' do

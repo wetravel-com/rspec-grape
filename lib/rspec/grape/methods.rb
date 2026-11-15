@@ -41,7 +41,7 @@ module RSpec
           url = api_url
         end
 
-        if %w[GET HEAD DELETE].include?(api_method.to_s.upcase) || params.empty?
+        if %w[GET HEAD DELETE].include?(api_method.to_s.upcase) || params.empty? || file_upload?(params)
           self.send(api_method, url, params)
         else
           self.send(api_method, url, {}, { 'CONTENT_TYPE' => 'application/json', input: params.to_json })
@@ -65,6 +65,15 @@ module RSpec
 
       def parameterized_url?
         api_url =~ /\/:/
+      end
+
+      def file_upload?(value)
+        case value
+        when Rack::Test::UploadedFile then true
+        when Hash then value.values.any? { |v| file_upload?(v) }
+        when Array then value.any? { |v| file_upload?(v) }
+        else false
+        end
       end
     end
   end

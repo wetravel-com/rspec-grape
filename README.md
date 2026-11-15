@@ -88,6 +88,12 @@ Params can be passed to `call_api` method:
 call_api({foo: :bar})
 ```
 
+Body params are sent as JSON. When params contain a `Rack::Test::UploadedFile` (at any nesting level), they are sent as `multipart/form-data` instead:
+
+```ruby
+call_api(file: Rack::Test::UploadedFile.new('spec/fixtures/doc.pdf', 'application/pdf'))
+```
+
 ### Stubbing API helpers
 
 rspec-grape provides two methods to stub API helpers: `expect_endpoint_to` and `expect_endpoint_not_to`. You can easily write:

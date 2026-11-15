@@ -33,6 +33,14 @@ class TestAPI < Grape::API
     help_me
   end
 
+  params do
+    requires :file, type: File
+    requires :name
+  end
+  post :test_upload do
+    { filename: params[:file][:filename], content: params[:file][:tempfile].read, name: params[:name] }
+  end
+
   get '/params/:param/:id' do    
     params
   end

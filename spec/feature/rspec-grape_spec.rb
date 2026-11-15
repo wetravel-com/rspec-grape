@@ -21,6 +21,15 @@ describe TestAPI, :api do
     end
   end
 
+  describe 'POST /test_upload' do
+    it 'uploads file as multipart' do
+      file = Rack::Test::UploadedFile.new(StringIO.new('bytes'), 'text/plain', original_filename: 'a.txt')
+      call_api(file: file, name: 'doc')
+
+      expect(last_response.body).to eq({ filename: 'a.txt', content: 'bytes', name: 'doc' }.to_json)
+    end
+  end
+
   context 'when no valid endpoint description' do
     it 'raises exception' do
       expect {
