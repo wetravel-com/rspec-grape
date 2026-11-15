@@ -4,7 +4,7 @@ module RSpec
       include Rack::Test::Methods
 
       def app
-        self.described_class
+        self.class.metadata[:grape_app] || RSpec.configuration.grape_app || described_class
       end
 
       def api_method

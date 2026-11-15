@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'support/test_api'
 
 describe RSpec::Grape::Methods, include_methods: true do
   before do
@@ -8,8 +9,27 @@ describe RSpec::Grape::Methods, include_methods: true do
 
   describe '#app' do
     subject { app }
-    before { expect(self).to receive(:described_class).and_call_original.twice }    
+
     it { is_expected.to eq(described_class) }
+
+    context 'when grape_app is configured' do
+      around do |example|
+        RSpec.configuration.grape_app = TestAPI
+        example.run
+      ensure
+        RSpec.configuration.grape_app = nil
+      end
+
+      it { is_expected.to eq(TestAPI) }
+
+      context 'when grape_app metadata is set', grape_app: :metadata_app do
+        it { is_expected.to eq(:metadata_app) }
+      end
+    end
+
+    context 'when grape_app metadata is set', grape_app: :metadata_app do
+      it { is_expected.to eq(:metadata_app) }
+    end
   end
 
   describe '#api_url' do

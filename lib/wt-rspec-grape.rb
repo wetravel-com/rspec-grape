@@ -8,6 +8,8 @@ require 'rspec/grape/utils'
 require 'rspec/grape/methods'
 
 RSpec.configure do |config|
+  config.add_setting :grape_app
+
   config.include RSpec::Grape::Methods, type: :api
   config.include RSpec::Grape::Methods, :api
 

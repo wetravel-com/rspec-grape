@@ -50,6 +50,24 @@ Or use a symbol:
 describe MyAPI, :api do
 ```
 
+### Root API
+
+By default requests are sent to `described_class`. Since Grape 3.3, mounted APIs no longer inherit helpers, rescue handlers and prefixes from the API they are mounted into, so specs usually need to hit the root API instead. Configure it once in your spec helper:
+
+```ruby
+RSpec.configure do |config|
+  config.grape_app = API
+end
+```
+
+Any Rack app works, e.g. `Rails.application`. It can also be overridden per example group with metadata:
+
+```ruby
+describe MyAPI, type: :api, grape_app: OtherAPI do
+```
+
+Defining `app` (or `let(:app)`) in an example group still takes precedence.
+
 ### Basic usage
 
 This gem provides the `call_api` helper method. It automatically reads endpoint url and method from context description, allowing you to avoid duplication and write a shorter spec:
